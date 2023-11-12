@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>認証コード入力</h1>
-    <form class="js_auth_send_form" action="{% url "signup/auth/send" %}" method="POST">
-        {% csrf_token %}
-        <p>メールアドレス{{email}}に認証コードを送信しました。<br>
-            メールに記載の認証コードを入力してください。
-        </p>
+{% extends "base/index.html" %}
 
-        <input type="text" name="auth_code">
-        <button class="js_auth_send_button" type="button">認証コードを登録</button>
-    </form>
-    <script src="{% static "bundle.js" %}"></script>
-</body>
-</html>
+{% block title %}auth check{% endblock title %}
+
+{% block body %}
+<form class="js_auth_send_form" action="{% url "signup/auth/send" %}" method="POST">
+    {% csrf_token %}
+    <h1>認証コード入力</h1>
+    <p>メールアドレス{{email}}に認証コードを送信しました。<br>
+        メールに記載の認証コードを入力してください。
+    </p>
+    {% with text="認証コード" type="text" name="auth_code" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with class="js_auth_send_button" type="button" text="認証コードを送信する" %}
+        {% include "components/button/index.html" %}
+    {% endwith %}
+</form>
+{% endblock body %}

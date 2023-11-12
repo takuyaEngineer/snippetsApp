@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    会員登録が完了しました。
+{% extends "base/index.html" %}
 
-    <a href="{% url "login/index" %}">ログイン</a>
-</body>
-</html>
+{% block title %}signup fin{% endblock title %}
+
+{% block body %}
+<h1>会員登録が完了しました。</h1>
+<a href="{% url "login/index" %}">ログイン</a>
+{% endblock body %}

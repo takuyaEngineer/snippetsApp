@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base/index.html" %}
+
+{% block title %}signup new{% endblock title %}
+
+{% block body %}
+<form class="js_signup_create_form" action="{% url "signup/create" %}" method="POST">
+    {% csrf_token %}
     <h1>会員登録</h1>
-    <form class="js_signup_create_form" action="{% url "signup/create" %}" method="POST">
-        {% csrf_token %}
-        <div>
-            <p>名前</p>
-            <input type="text" name="name">
-        </div>
-        <div>
-            <p>パスワード</p>
-            <input type="password" name="password">
-        </div>
-        <button class="js_signup_create_button" type="button">登録する</button>
-    </form>
-    <script src="{% static "bundle.js" %}"></script>
-</body>
-</html>
+    <p>ユーザー情報を登録</p>
+    {% with text="お名前" type="text" name="name" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with text="パスワード" type="password" name="password" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with class="js_signup_create_button" type="button" text="ユーザー情報を登録" %}
+        {% include "components/button/index.html" %}
+    {% endwith %}
+</form>
+{% endblock body %}

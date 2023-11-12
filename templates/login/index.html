@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>ログイン</h2>
-</body>
-</html>
+{% extends "base/index.html" %}
+
+{% block title %}login{% endblock title %}
+
+{% block body %}
+{% comment %} <form class="" action="{% url "" %}" method="POST"> {% endcomment %}
+    {% csrf_token %}
+    <h1>ログイン</h1>
+    {% with text="メールアドレス" type="email" name="email" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with text="パスワード" type="password" name="password" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with type="button" text="登録する" %}
+        {% include "components/button/index.html" %}
+    {% endwith %}
+{% comment %} </form> {% endcomment %}
+{% endblock body %}

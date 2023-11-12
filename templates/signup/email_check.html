@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base/index.html" %}
+
+{% block title %}email check{% endblock title %}
+
+{% block body %}
+<form class="js_email_send_form" action="{% url 'signup/email/send' %}" method="POST">
+    {% csrf_token %}
     <h1>会員登録</h1>
-    <form class="js_email_send_form" action="{% url 'signup/email/send' %}" method="POST">
-        {% csrf_token %}
-        <p>メールアドレスを送信</p>
-        <p>入力されたメールアドレス当てに認証コードが送られます。</p>
-        <input type="email" name="email">
-        <button type="button" class="js_email_send">送信</button>
-    </form>
-    <script src="{% static "bundle.js" %}"></script>
-</body>
-</html>
+    <p>メールを送信</p>
+    <p>入力されたメールアドレス当てに認証コードが送られます。</p>
+    {% with text="メールアドレス" type="email" name="email" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+    {% with class="js_email_send" type="button" text="登録して認証コードを送信" %}
+        {% include "components/button/index.html" %}
+    {% endwith %}
+</form>
+{% endblock body %}
