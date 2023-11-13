@@ -30,6 +30,9 @@ class User(models.Model):
     name = models.TextField(blank=True,null=True,default='')
     email = models.TextField(blank=True,null=True,default='')
     password = models.TextField(blank=True,null=True,default='')
+    created_at = models.DateTimeField(null=True,auto_now_add=True)
+    created_at = models.DateTimeField(null=True,auto_now=True)
+    active_flag = models.BooleanField(default=True)
 
     class Meta:
         db_table = "user"

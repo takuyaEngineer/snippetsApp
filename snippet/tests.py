@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 from django.test import TestCase
-from snippets.views import top
+from snippet.views import top
 
 # Create your tests here.
 

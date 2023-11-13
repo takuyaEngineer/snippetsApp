@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'snippets',
+    'snippet',
     'common',
     'django_ses',
     'top',
@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'djangosnippets.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'taku+2',
-        'NAME': 'snippets',
-        'PASSWORD': 'Taku+24646!!',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'USER': env('MYSQL_USER'),
+        'NAME': env('MYSQL_NAME'),
+        'PASSWORD': env('MYSQL_PASSWORD'),
+        'HOST': env('MYSQL_HOST'),
+        'PORT': env('MYSQL_PORT'),
         'OPTIONS': {
             'charset': 'utf8mb4'
         },
@@ -165,3 +165,14 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 #         }
 #     }
 # }
+
+# 
+# cookie key
+# 
+# signup
+SIGNUP_EMAIL = "sue"
+# login
+LOGIN_USER_ID = "loui"
+# age
+COOKIE_AGE_1D = 60 * 60 * 24        #1日
+COOKIE_AGE_7D = 60 * 60 * 24 * 7    #1週間

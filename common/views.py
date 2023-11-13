@@ -2,12 +2,16 @@ from django.shortcuts import render
 import random, base64, hashlib, string, binascii
 from Crypto.Cipher import AES
 from django.db import connection
+import traceback
+from django.conf import settings
+from common import sqls
 
 # Create your views here.
 
 secret_key = hashlib.sha256(b'key').digest()
 iv = hashlib.md5(b'iv').digest()
 
+# ランダムな6桁の数字の文字列を生成する
 def ComRandomNum(n):
     num = '0123456789'
     return ''.join(random.choices(num, k=n))
@@ -57,6 +61,9 @@ def ComGetQuery(query, args):
         return {
             "except_flag": True
         }
+    
+    finally:
+        cursor.close()
 
 # SQLで持ってきたデータを辞書型にする関数
 def dictfetchall(columns, cursor):
@@ -64,3 +71,60 @@ def dictfetchall(columns, cursor):
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
+
+# cookieの値を取得する
+def ComGetCookie(reqest,name):
+
+    try:
+        return ComGetDecrypt(reqest.COOKIES.get(name))
+    
+    except:
+        print(traceback.print_exc())
+        print('Cookie is Not Set:{}'.format(name))
+        return False
+
+# cookieに値をセットする
+def ComSetCookie(response,name,value,age):
+
+    try:
+        if age == 0:
+            age = None
+        
+        response.set_cookie(
+            name,
+            ComGetEncrypt(str(value)),
+            age,
+        )
+
+        return response
+    
+    except:
+        print(traceback.print_exc())
+        print('Cookie is Not Set:{}/{}/{}'.format(name,value,age))
+        return False
+
+# セッションチェック
+def ComSessionCheck(reqest):
+
+    try:
+        cookie_user_id = ComGetCookie(reqest,settings.LOGIN_USER_ID)
+
+        if not cookie_user_id:
+            return False
+        
+        query = sqls.GetUserByUserId
+
+        args = [
+            cookie_user_id
+        ]
+
+        qdata = ComGetQuery(query,args)
+        
+        if not qdata:
+            return False
+        
+        return True
+
+    except:
+        print(traceback.print_exc())
+        return False
