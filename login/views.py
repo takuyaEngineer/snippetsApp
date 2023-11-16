@@ -17,25 +17,28 @@ def LoginCheck(request):
 
         req_body_json = json.loads(request.body.decode('utf-8'))
 
-        print(req_body_json["email"])
+        params = {
+            "email": req_body_json["email"],
+            "password": req_body_json["password"],
+        }
 
         # DBから一致するユーザーの情報を取得する
-        return_value = DomGetUser(req_body_json)
+        return_value = DomGetUser(params)
 
         # DBに一致するユーザーが存在しなかった場合、falseを返す
-        if not return_value["try_flag"]:
-            context["try_flag"] = False
+        if return_value["try_flag"] == False:
+            context["try_flag"] = return_value["try_flag"]
             context["msg"] = return_value["msg"]
             response.content = json.dumps(context)
             return response
                 
-        # ログインするユーザーの情報をcookieに保存する
         params = {
             "user_id": return_value["user"]["id"],
         }
+        # ログインするユーザーの情報をcookieに保存する
         return_value = DomLoginCookieSave(response,params)
-        if return_value["try_flag"] == False:
-            context["try_flag"] = False
+        if return_value["try_flag"] != True:
+            context["try_flag"] = return_value["try_flag"]
             response.content = json.dumps(context)
             return response
 

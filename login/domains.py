@@ -3,6 +3,7 @@ from common.views import ComGetQuery, ComSetCookie
 from login.consts import LOGIN_MSG
 from django.contrib.auth.hashers import check_password
 from django.conf import settings
+import sys, traceback
 
 # DBからユーザーの情報を取得する
 def DomGetUser(params):
@@ -11,23 +12,22 @@ def DomGetUser(params):
     
     try:
         query = sqls.GetUserByEmail()
+
         args = [
             params["email"]
         ]
+
         qdata = ComGetQuery(query,args)
 
-        print("qdata",qdata)
-
+        if "except_flag" in qdata:
+            context["try_flag"] = "except"
+            return context
+        
         if not qdata:
             context["try_flag"] = False
             context["msg"] = LOGIN_MSG["user_unregistered"]
             return context
 
-        if "except_flag" in qdata:
-            context["try_flag"] = False
-            context["msg"] = LOGIN_MSG["user_unregistered"]
-            return context
-        
         if not check_password(params["password"], qdata[0]["password"]):
             context["try_flag"] = False
             context["msg"] = LOGIN_MSG["user_unregistered"]
@@ -37,6 +37,8 @@ def DomGetUser(params):
         return context
     
     except:
+        print(sys._getframe().f_code.co_name)
+        print(traceback.format_exc())
         context["try_flag"] = "except"
         return context
 
@@ -51,5 +53,7 @@ def DomLoginCookieSave(response,params):
         return context
     
     except:
-        context["try_flag"] = False
+        print(sys._getframe().f_code.co_name)
+        print(traceback.format_exc())
+        context["try_flag"] = "except"
         return context

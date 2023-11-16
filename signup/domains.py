@@ -24,10 +24,9 @@ def DomSignupCreateSave(params):
 
         qdata = ComGetQuery(query, args)
 
-        if type(qdata) == type({}):
-            if qdata["except_flag"]:
-                context["try_flag"] = "except"
-                return context
+        if "except_flag" in qdata:
+            context["try_flag"] = "except"
+            return context
 
         if qdata:
             context["try_flag"] = False
@@ -81,10 +80,9 @@ def DomSignupEmailSend(response,params):
 
         qdata = ComGetQuery(query,args)
 
-        if type(qdata) == type({}):
-            if qdata["except_flag"]:
-                context["try_flag"] = "except"
-                return context
+        if "except_flag" in qdata:
+            context["try_flag"] = "except"
+            return context
         
         if qdata:
             # 既に登録済みの場合、ログインするように促すメールを送信する。

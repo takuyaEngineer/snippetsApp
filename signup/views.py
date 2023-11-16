@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from common.views import ComGetEncrypt, ComRandomNum, ComGetDecrypt, ComSetCookie
-from signup.domains import DomSignupCreateSave, DomSignupAuthCompare, DomSignupEmailSend
-import json, sys, traceback
 from django.conf import settings
+
+from common.views import ComRandomNum, ComGetDecrypt
+
+from signup.domains import DomSignupCreateSave, DomSignupAuthCompare, DomSignupEmailSend
+
+import json, sys, traceback
 
 
 def SignupEmailCheck(request):
