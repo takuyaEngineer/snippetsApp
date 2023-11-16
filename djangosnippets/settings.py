@@ -170,6 +170,7 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # cookie key
 # 
 # signup
+SIGNUP_AUTH_CODE = "sac"
 SIGNUP_EMAIL = "sue"
 # login
 LOGIN_USER_ID = "loui"

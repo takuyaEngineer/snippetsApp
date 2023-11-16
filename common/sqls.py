@@ -1,15 +1,4 @@
 
-# メールアドレスの重複チェック
-def MailDuplicationCheck():
-
-    return """
-        select email
-        from user
-        where
-            email = %s
-        limit 1;
-    """
-
 def GetUserByEmail():
 
     return """
@@ -27,7 +16,7 @@ def GetUserByUserId():
         select id
         from user
         where
-            id = %s
+            id = %s and
             active_flag = 1
         limit 1;
     """

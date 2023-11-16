@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.core.mail import EmailMessage
-from common.views import ComGetEncrypt, ComRandomNum, ComGetDecrypt
-from signup.domains import DomSignupCreateSave, DomSignupAuthCompare
+from common.views import ComGetEncrypt, ComRandomNum, ComGetDecrypt, ComSetCookie
+from signup.domains import DomSignupCreateSave, DomSignupAuthCompare, DomSignupEmailSend
 import json, sys, traceback
+from django.conf import settings
 
 
 def SignupEmailCheck(request):
@@ -23,19 +23,13 @@ def SignupEmailsend(request):
 
         req_body_json = json.loads(request.body.decode('utf-8'))
 
-        enc_auth_code = ComGetEncrypt(auth_code)
-        enc_email = ComGetEncrypt(req_body_json["email"])
+        params = {
+            "auth_code":auth_code,
+            "email":req_body_json["email"]
+        }
 
-        response.set_cookie('auth_code', enc_auth_code)
-        response.set_cookie('email', enc_email)
-
-        # メールを送信する
-        subject = "会員登録　認証コードの送信"
-        message = auth_code
-        from_email = "ngctky626@gmail.com"
-        recipient_list = [req_body_json["email"]]
-        email = EmailMessage(subject, message, from_email, recipient_list)
-        email.send()
+        return_value = DomSignupEmailSend(response,params)
+        context["try_flag"] = return_value["try_flag"]
 
         response.content = json.dumps(context)
 
@@ -45,7 +39,9 @@ def SignupEmailsend(request):
         print(sys._getframe().f_code.co_name)
         print(traceback.format_exc())
         print(request.POST)
-        return redirect("maintenance/except")
+        context["try_flag"] = "except"
+        response.content = json.dumps(context)
+        return response
 
 
 def SignupAuthCheck(request):
@@ -61,15 +57,14 @@ def SignupAuthSend(request):
 
         req_body_json = json.loads(request.body.decode('utf-8'))
 
-        cookie_auth_code = ComGetDecrypt(request.COOKIES.get("auth_code"))
-        req_auth_code = req_body_json["auth_code"]
-
         params = {
-            "cookie_auth_code": cookie_auth_code,
-            "req_auth_code": req_auth_code
+            "cookie_auth_code": ComGetDecrypt(request.COOKIES.get(settings.SIGNUP_AUTH_CODE)),
+            "req_auth_code": req_body_json["auth_code"]
         }
 
-        DomSignupAuthCompare(context, params)
+        return_value = DomSignupAuthCompare(params)
+        context["try_flag"] = return_value["try_flag"]
+        context["msg"] = return_value["msg"]
 
         response.content = json.dumps(context)
 
@@ -79,7 +74,8 @@ def SignupAuthSend(request):
         print(sys._getframe().f_code.co_name)
         print(traceback.format_exc())
         print(request.POST)
-        return redirect("maintenance/except")
+        context["try_flag"] = "except"
+        return context
 
 
 def SignupNew(request):
@@ -102,10 +98,15 @@ def SignupCreate(request):
 
         req_body_json = json.loads(request.body.decode('utf-8'))
 
-        email = ComGetDecrypt(request.COOKIES.get("email"))
-        req_body_json["email"] = email
+        params = {
+            "name": req_body_json["name"],
+            "email": ComGetDecrypt(request.COOKIES.get(settings.SIGNUP_EMAIL)),
+            "password": req_body_json["password"],
+        }
 
-        DomSignupCreateSave(context, req_body_json)
+        return_value = DomSignupCreateSave(params)
+        context["try_flag"] = return_value["try_flag"]
+        context["msg"] = return_value["msg"]
 
         response.content = json.dumps(context)
 
@@ -115,7 +116,8 @@ def SignupCreate(request):
         print(sys._getframe().f_code.co_name)
         print(traceback.format_exc())
         print(request.POST)
-        return redirect("maintenance/except")
+        context["try_flag"] = "except"
+        return context
 
 def SignupFin(request):
 
