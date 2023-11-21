@@ -112,7 +112,7 @@ def ComSessionCheck(request):
         if not cookie_user_id:
             return False
         
-        query = sqls.GetUserByUserId()
+        query = sqls.GetUserIdByUserId()
 
         args = [
             cookie_user_id

@@ -10,7 +10,7 @@ def GetUserByEmail():
         limit 1;
     """
 
-def GetUserByUserId():
+def GetUserIdByUserId():
 
     return """
         select id
@@ -19,4 +19,10 @@ def GetUserByUserId():
             id = %s and
             active_flag = 1
         limit 1;
+    """
+def GetSnippetAll():
+
+    return """
+        select *
+        from snippet
     """

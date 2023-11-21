@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>スニペットの作成</h1>
+    <form action="{% url "snippet/create" %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% with text="タイトル" type="text" name="title" %}
+            {% include "components/input/index.html" %}
+        {% endwith %}
+
+        {% with text="説明" type="text" name="description" %}
+            {% include "components/input/index.html" %}
+        {% endwith %}
+
+        {% with text="コード" name="code" %}
+            {% include "components/textarea/index.html" %}
+        {% endwith %}
+
+        <button type="submit">保存</button>
+    </form>
+    <a href={% url "snippet/index" %}>スニペット一覧</a>
+</body>
+</html>

@@ -1,11 +1,14 @@
-# from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 
 from snippet.forms import SnippetForm
+from snippet.domains import DomSnippetCreate
 from common.models import Snippet
 from common.views import ComSessionCheck
 from top.views import top
+from maintenance.views import Except
+
+import json
 
 def SnippetIndex(request):
 
@@ -16,17 +19,23 @@ def SnippetIndex(request):
 
     return render(request,"snippet/index.html")
 
-def snippet_new(request):
-    if request.method == 'POST':
-        form = SnippetForm(request.POST)
-        if form.is_valid():
-            snippet = form.save(commit=False)
-            snippet.created_by = request.user
-            snippet.save()
-            return redirect(snippet_detail, snippet_id=snippet.pk)
-    else:
-        form = SnippetForm()
-    return render(request, "snippet/snippet_new.html", {"form": form})
+def SnippetNew(request):
+
+    return render(request, "snippet/new.html")
+
+def snippetCreate(request):
+
+    params = {
+        "title": request.POST.get("title"),
+        "description": request.POST.get("description"),
+        "code": request.POST.get("code"),
+    }
+
+    return_value = DomSnippetCreate(params)
+    if not return_value:
+        redirect(Except)
+
+    return render(request, "snippet/index.html")
 
 def snippet_edit(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
