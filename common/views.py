@@ -104,21 +104,24 @@ def ComSetCookie(response,name,value,age):
         return False
 
 # セッションチェック
-def ComSessionCheck(reqest):
+def ComSessionCheck(request):
 
     try:
-        cookie_user_id = ComGetCookie(reqest,settings.LOGIN_USER_ID)
+        cookie_user_id = ComGetCookie(request,settings.LOGIN_USER_ID)
 
         if not cookie_user_id:
             return False
         
-        query = sqls.GetUserByUserId
+        query = sqls.GetUserByUserId()
 
         args = [
             cookie_user_id
         ]
 
         qdata = ComGetQuery(query,args)
+
+        if "except_flag" in qdata:
+            return False
         
         if not qdata:
             return False

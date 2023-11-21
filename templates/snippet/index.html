@@ -1,0 +1,16 @@
+{% extends "base/index.html" %}
+
+{% block title %}snippet list{% endblock title %}
+
+{% block body %}
+<h1>スニペット一覧</h1>
+{% for snippet in snippets %}
+<a href={% url "snippets_detail" snippet.id %}>
+    <li>{{snippet.id}}</li>
+    <li>{{snippet.title}}</li>
+</a>
+<hr>
+{% endfor %}
+<a href={% url "snippets_new" %}>スニペット作成</a>
+{% endblock body %}
+

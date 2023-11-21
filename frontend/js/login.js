@@ -15,7 +15,7 @@ export const loginCheck = () => {
     fetch.fetch_api(url, form_data).then((response) => {
         console.log(response);
         if (response.try_flag === true) {
-            location.href = common.get_my_domain() + "/"
+            location.href = common.get_my_domain() + "/snippet/"
             // console.log("success");
         } else if (response.try_flag === false) {
             console.log(response.msg);

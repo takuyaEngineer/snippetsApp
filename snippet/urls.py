@@ -3,7 +3,7 @@ from django.urls import path
 from snippet import views
 
 urlpatterns = [
-    # path('', views.snippet, name="snippets/index"),
+    path('', views.SnippetIndex, name="snippet/index"),
     path('new/', views.snippet_new, name="snippets_new"),
     path('<int:snippet_id>/', views.snippet_detail, name="snippets_detail"),
     path('edit/<int:snippet_id>/', views.snippet_edit, name="snippets_edit"),
