@@ -20,9 +20,20 @@ def GetUserIdByUserId():
             active_flag = 1
         limit 1;
     """
-def GetSnippetAll():
+
+def GetSnippetList():
+
+    return """
+        select *
+        from snippet;
+    """
+
+def GetSnippetDetail():
 
     return """
         select *
         from snippet
+        where
+            id = %s
+        limit 1;
     """

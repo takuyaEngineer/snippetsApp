@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <li>{{snippet.title}}</li>
-    <li>{{snippet.code}}</li>
-    <li>{{snippet.description}}</li>
-    <li>{{snippet.created_by}}</li>
-    <li>{{snippet.created_at}}</li>
-    <li>{{snippet.updated_at}}</li>
-    <a href={% url "snippets_edit" snippet.id %}>編集</a>
-    <a href={% url "top" %}>トップへ</a>
-</body>
-</html>
+{% extends "base/index.html" %}
+
+{% block title %}snippet detail{% endblock title %}
+
+{% block body %}
+<li>{{snippet.id}}</li>
+<li>{{snippet.title}}</li>
+<li>{{snippet.code}}</li>
+<li>{{snippet.description}}</li>
+<li>{{snippet.created_by}}</li>
+<li>{{snippet.created_at}}</li>
+<li>{{snippet.updated_at}}</li>
+<a href={% url "snippets_edit" snippet.id %}>編集</a>
+<a href={% url "snippet/index" %}>トップへ</a>
+{% endblock body %}
+
