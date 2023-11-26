@@ -44,19 +44,6 @@ def snippetCreate(request):
 
     return render(request, "snippet/index.html")
 
-def snippet_edit(request, snippet_id):
-    snippet = get_object_or_404(Snippet, pk=snippet_id)
-    if snippet.created_by_id != request.user.id:
-        return HttpResponseForbidden("このスニペットの編集は許可されていません。")
-    
-    if request.method == "POST":
-        form = SnippetForm(request.POST, instance=snippet)
-        if form.is_valid():
-            form.save()
-            return redirect(snippetDetail, snippet_id=snippet_id)
-    else:
-        form = SnippetForm(instance=snippet)
-    return render(request, 'snippet/snippet_edit.html', {'form': form})
 
 def snippetDetail(request, snippet_id):
 
@@ -72,6 +59,46 @@ def snippetDetail(request, snippet_id):
             context["snippet"] = return_value["snippet"]
 
         return render(request, "snippet/detail.html", context)
+    
+    except:
+        print(traceback.print_exc())
+        return redirect(Except)
+
+
+def snippetEdit(request, snippet_id):
+
+    context = {"try_flag": True, "msg": ""}
+
+    try:
+        # スニペットを取得
+        params = {
+            "snippet_id": snippet_id
+        }
+        return_value = DomGetSnippetDetail(params)
+        if return_value["try_flag"] == True:
+            context["snippet"] = return_value["snippet"]
+
+        return render(request, "snippet/edit.html", context)
+    
+    except:
+        print(traceback.print_exc())
+        return redirect(Except)
+
+
+def snippetUpdate(request):
+
+    context = {"try_flag": True, "msg": ""}
+
+    try:
+        # スニペットを取得
+        params = {
+            "snippet_id": snippet_id
+        }
+        return_value = DomGetSnippetDetail(params)
+        if return_value["try_flag"] == True:
+            context["snippet"] = return_value["snippet"]
+
+        return render(request, "snippet/edit.html", context)
     
     except:
         print(traceback.print_exc())

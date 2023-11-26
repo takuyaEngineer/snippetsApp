@@ -1,0 +1,25 @@
+{% extends "base/index.html" %}
+
+{% block title %}snippet edit{% endblock title %}
+
+{% block body %}
+<h1>スニペットの編集</h1>
+<form action="{% url "snippet/update" %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% with text="タイトル" type="text" name="title" value="{{snippet.title}}" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+
+    {% with text="説明" type="text" name="description" value="{{snippet.description}}" %}
+        {% include "components/input/index.html" %}
+    {% endwith %}
+
+    {% with text="コード" name="code" value="{{snippet.code}}" %}
+        {% include "components/textarea/index.html" %}
+    {% endwith %}
+
+    <button type="submit">更新</button>
+</form>
+<a href={% url "top" %}>トップへ</a>
+{% endblock body %}

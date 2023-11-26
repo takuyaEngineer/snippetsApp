@@ -5,6 +5,7 @@ from snippet.consts import SNIPPET_MSG
 
 import traceback
 
+
 def DomSnippetCreate(params):
         
     context = {"try_flag": True, "msg": ""}
@@ -21,6 +22,7 @@ def DomSnippetCreate(params):
     except:
         context["try_flag"] = "except"
         return context
+
 
 def DomGetSnippetList():
 
@@ -50,6 +52,7 @@ def DomGetSnippetList():
         print(traceback.print_exc())
         return context
 
+
 def DomGetSnippetDetail(params):
 
     context = {"try_flag": True, "msg": ""}
@@ -75,6 +78,21 @@ def DomGetSnippetDetail(params):
                 
         context["snippet"] = qdata[0]
         return context
+    
+    except:
+        context["try_flag"] = "except"
+        print(traceback.print_exc())
+        return context
+
+
+def DomUpdateSnippet(params):
+
+    context = {"try_flag": True, "msg": ""}
+
+    try:
+        snippet = Snippet.objects.filter(
+            id = params["snippet_id"]
+        ).first()
     
     except:
         context["try_flag"] = "except"
