@@ -42,7 +42,7 @@ def SnippetCreate(request):
     if not return_value:
         redirect(Except)
 
-    return render(request, "snippet/index.html")
+    return redirect(SnippetIndex)
 
 
 def SnippetDetail(request, snippet_id):
