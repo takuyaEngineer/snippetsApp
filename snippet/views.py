@@ -30,7 +30,7 @@ def SnippetNew(request):
 
     return render(request, "snippet/new.html")
 
-def snippetCreate(request):
+def SnippetCreate(request):
 
     params = {
         "title": request.POST.get("title"),
@@ -45,7 +45,7 @@ def snippetCreate(request):
     return render(request, "snippet/index.html")
 
 
-def snippetDetail(request, snippet_id):
+def SnippetDetail(request, snippet_id):
 
     context = {"try_flag": True, "msg": ""}
 
@@ -66,7 +66,7 @@ def snippetDetail(request, snippet_id):
         return redirect(Except)
 
 
-def snippetEdit(request, snippet_id):
+def SnippetEdit(request, snippet_id):
 
     context = {"try_flag": True, "msg": ""}
 
@@ -87,7 +87,7 @@ def snippetEdit(request, snippet_id):
         return redirect(Except)
 
 
-def snippetUpdate(request, snippet_id):
+def SnippetUpdate(request, snippet_id):
 
     context = {"try_flag": True, "msg": ""}
 
@@ -104,7 +104,7 @@ def snippetUpdate(request, snippet_id):
             print(return_value["msg"])
             return redirect(Except)
         
-        return redirect(snippetDetail,snippet_id)
+        return redirect(SnippetDetail,snippet_id)
     
     except:
         print(sys._getframe().f_code.co_name)
