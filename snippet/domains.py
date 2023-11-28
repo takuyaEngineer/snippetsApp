@@ -3,7 +3,7 @@ from common import sqls
 from common.views import ComGetQuery
 from snippet.consts import SNIPPET_MSG
 
-import traceback
+import traceback,sys
 
 
 def DomSnippetCreate(params):
@@ -49,6 +49,7 @@ def DomGetSnippetList():
     
     except:
         context["try_flag"] = "except"
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return context
 
@@ -65,7 +66,6 @@ def DomGetSnippetDetail(params):
         ]
 
         qdata = ComGetQuery(query,args)
-        print(qdata)
 
         if "except_flag" in qdata:
             context["try_flag"] = "except"
@@ -81,6 +81,7 @@ def DomGetSnippetDetail(params):
     
     except:
         context["try_flag"] = "except"
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return context
 
@@ -91,10 +92,23 @@ def DomUpdateSnippet(params):
 
     try:
         snippet = Snippet.objects.filter(
-            id = params["snippet_id"]
+            id = params["id"]
         ).first()
+
+        if not snippet:
+            context["try_flag"] = False
+            context["msg"] = SNIPPET_MSG["snippet_none"]
+            return context
+        
+        snippet.title = params["title"]
+        snippet.description = params["description"]
+        snippet.code = params["code"]
+        snippet.save()
+
+        return context
     
     except:
         context["try_flag"] = "except"
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return context

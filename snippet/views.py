@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 
 from snippet.forms import SnippetForm
-from snippet.domains import DomSnippetCreate, DomGetSnippetList, DomGetSnippetDetail
+from snippet.domains import DomSnippetCreate, DomGetSnippetList, DomGetSnippetDetail, DomUpdateSnippet
 from common.models import Snippet
 from common.views import ComSessionCheck
 from top.views import top
 from maintenance.views import Except
 
-import traceback
+import traceback,sys
 
 def SnippetIndex(request):
 
@@ -61,6 +61,7 @@ def snippetDetail(request, snippet_id):
         return render(request, "snippet/detail.html", context)
     
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return redirect(Except)
 
@@ -81,25 +82,31 @@ def snippetEdit(request, snippet_id):
         return render(request, "snippet/edit.html", context)
     
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return redirect(Except)
 
 
-def snippetUpdate(request):
+def snippetUpdate(request, snippet_id):
 
     context = {"try_flag": True, "msg": ""}
 
     try:
-        # スニペットを取得
+        # スニペットを更新
         params = {
-            "snippet_id": snippet_id
+            "id": snippet_id,
+            "title": request.POST.get("title"),
+            "description": request.POST.get("description"),
+            "code": request.POST.get("code"),
         }
-        return_value = DomGetSnippetDetail(params)
-        if return_value["try_flag"] == True:
-            context["snippet"] = return_value["snippet"]
-
-        return render(request, "snippet/edit.html", context)
+        return_value = DomUpdateSnippet(params)
+        if return_value["try_flag"] == False:
+            print(return_value["msg"])
+            return redirect(Except)
+        
+        return redirect(snippetDetail,snippet_id)
     
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return redirect(Except)

@@ -2,7 +2,7 @@ from django.shortcuts import render
 import random, base64, hashlib, string, binascii
 from Crypto.Cipher import AES
 from django.db import connection
-import traceback
+import traceback,sys
 from django.conf import settings
 from common import sqls
 
@@ -79,6 +79,7 @@ def ComGetCookie(reqest,name):
         return ComGetDecrypt(reqest.COOKIES.get(name))
     
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         print('Cookie is Not Set:{}'.format(name))
         return False
@@ -99,6 +100,7 @@ def ComSetCookie(response,name,value,age):
         return response
     
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         print('Cookie is Not Set:{}/{}/{}'.format(name,value,age))
         return False
@@ -129,5 +131,6 @@ def ComSessionCheck(request):
         return True
 
     except:
+        print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return False
