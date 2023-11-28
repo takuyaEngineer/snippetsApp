@@ -9,4 +9,5 @@ urlpatterns = [
     path('detail/<int:snippet_id>/', views.SnippetDetail, name="snippet/detail"),
     path('edit/<int:snippet_id>/', views.SnippetEdit, name="snippet/edit"),
     path('update/<int:snippet_id>/', views.SnippetUpdate, name="snippet/update"),
+    path('delete/<int:snippet_id>/', views.SnippetDelete, name="snippet/delete"),
 ]

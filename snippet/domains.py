@@ -112,3 +112,28 @@ def DomUpdateSnippet(params):
         print(sys._getframe().f_code.co_name)
         print(traceback.print_exc())
         return context
+
+
+def DomDeleteSnippet(params):
+
+    context = {"try_flag": True, "msg": ""}
+
+    try:
+        snippet = Snippet.objects.filter(
+            id = params["id"]
+        ).first()
+
+        if not snippet:
+            context["try_flag"] = False
+            context["msg"] = SNIPPET_MSG["snippet_none"]
+            return context
+        
+        snippet.delete()
+
+        return context
+    
+    except:
+        context["try_flag"] = "except"
+        print(sys._getframe().f_code.co_name)
+        print(traceback.print_exc())
+        return context

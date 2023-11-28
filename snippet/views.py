@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 
 from snippet.forms import SnippetForm
-from snippet.domains import DomSnippetCreate, DomGetSnippetList, DomGetSnippetDetail, DomUpdateSnippet
+from snippet.domains import DomSnippetCreate, DomGetSnippetList, DomGetSnippetDetail, DomUpdateSnippet, DomDeleteSnippet
 from common.models import Snippet
 from common.views import ComSessionCheck
 from top.views import top
@@ -105,6 +105,28 @@ def SnippetUpdate(request, snippet_id):
             return redirect(Except)
         
         return redirect(SnippetDetail,snippet_id)
+    
+    except:
+        print(sys._getframe().f_code.co_name)
+        print(traceback.print_exc())
+        return redirect(Except)
+
+
+def SnippetDelete(request, snippet_id):
+
+    context = {"try_flag": True, "msg": ""}
+
+    try:
+        # スニペットを削除
+        params = {
+            "id": snippet_id,
+        }
+        return_value = DomDeleteSnippet(params)
+        if return_value["try_flag"] == False:
+            print(return_value["msg"])
+            return redirect(Except)
+        
+        return redirect(SnippetIndex)
     
     except:
         print(sys._getframe().f_code.co_name)

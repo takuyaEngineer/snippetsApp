@@ -12,6 +12,9 @@
     <li>{{snippet.updated_at}}</li>
 </ul>
 <a href={% url "snippet/edit" snippet.id %}>編集</a>
+<form action="{% url "snippet/delete" snippet.id %}">
+    <button type="submit">削除</button>
+</form>
 <a href={% url "snippet/index" %}>トップへ</a>
 {% endblock body %}
 
