@@ -1,0 +1,28 @@
+@charset 'utf-8';
+
+.login_page {
+    .form {
+        display: flex;
+        flex-direction: column;
+        width: 40rem;
+        margin-top: 2.4rem;
+
+        .button {
+            margin-top: 2.4rem;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .password_show {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            margin-top: .4rem;
+            cursor: pointer;
+        }
+
+        .password_show_checkbox {
+            cursor: pointer;
+        }
+    }
+}
