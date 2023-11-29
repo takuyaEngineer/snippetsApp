@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}snippetsApp{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "webpack/style.css" %}">
 </head>
 <body>
     {% block body %}{% endblock body %}
-    <script src="{% static "bundle.js" %}"></script>
+    <script src="{% static "webpack/bundle.js" %}"></script>
 </body>
 </html>

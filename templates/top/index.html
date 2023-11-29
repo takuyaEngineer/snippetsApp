@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base/index.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スニペット共有サイト</title>
-</head>
+{% block title %}スニペット共有サイト{% endblock title %}
 
-<body>
-    <h1>スニペット共有サイト</h1>
-    <div>
-        <a href={% url "login/index" %}>login</a>
-        <a href={% url "signup/email/check" %}>sign up</a>
-    </div>
-</body>
-
-</html>
+{% block body %}
+<h1>スニペット共有サイト</h1>
+<div>
+    <a href={% url "login/index" %}>login</a>
+    <a href={% url "signup/email/check" %}>sign up</a>
+</div>
+{% endblock body %}
