@@ -3,9 +3,29 @@
 {% block title %}スニペット共有サイト{% endblock title %}
 
 {% block body %}
-<h1>スニペット共有サイト</h1>
-<div>
-    <a href={% url "login/index" %}>login</a>
-    <a href={% url "signup/email/check" %}>sign up</a>
+<div class="l_layout_center top_page">
+    <h1 class="title_22">スニペット共有サイト</h1>
+    <div class="mt_24 button_area">
+        {% with url="login/index" text="login" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+        {% with url="signup/email/check" text="sign up" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+    </div>
+    <div>
+        <h2>使い方</h2>
+        <ul>
+            <li>
+                <h3>スニペットを投稿する</h3>
+            </li>
+            <li>
+                <h3>スニペットを閲覧する</h3>
+            </li>
+            <li>
+                <h3>コミュニケーションを取る</h3>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock body %}

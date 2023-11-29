@@ -1,15 +1,20 @@
 @charset 'utf-8';
 
 // function
-@import "function/basic.scss";
+@import "./function/basic.scss";
 
 // base
-@import "base/normalize.scss";
-@import "base/base.scss";
+@import "./base/normalize.scss";
+@import "./base/base.scss";
 
+// layout
+@import "./layout/l_layout.scss";
 
 // utility
-@import "utility/utility.scss";
+@import "./utility/utility.scss";
 
 // module
-// @import "./module/";
+@import "./module/link.scss";
+
+// page
+@import "./page/top.scss";
