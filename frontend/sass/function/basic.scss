@@ -1,0 +1,45 @@
+@charset 'utf-8';
+
+$colors: (
+    gray:#f6f6f6,
+    black_87:rgba(0, 0, 0, 0.87),
+    black_60:rgba(0, 0, 0, 0.60),
+    black_38:rgba(0, 0, 0, 0.38),
+    white:#fff,
+    white_50:rgb(255, 255, 255, 0.5),
+    main: #56CCF2,
+    main_2:#2F80ED,
+    main_logo:#4654A3,
+    main_bg:#FFE3B8,
+    accent:#3FB84B,
+    accent_2:#FF7777,
+    footer_bg:#4f4f4f
+);
+
+@function colors($key) {
+    @return map-get($map: $colors, $key: $key);
+}
+
+$px_vw: (
+    16px:min(16px, 1.1111111111111112vw),
+    20px:min(20px, 1.3888888888888888vw),
+    32px:min(32px, 2.2222222222222223vw),
+    48px:min(48px, 3.3333333333333335vw),
+    64px:min(64px, 4.444444444444445vw)
+);
+
+@function px_vw($key) {
+    @return map-get($map: $px_vw, $key: $key);
+}
+
+$breackpoints: (
+    "pc": "screen and (min-width:768px)",
+    "tb": "screen and (min-width:768px) and (max-width:1279px)",
+    "sp": "screen and (max-width:767px)",
+);
+
+@mixin mq($window) {
+    @media #{map-get($breackpoints, $window)} {
+        @content;
+    }
+}

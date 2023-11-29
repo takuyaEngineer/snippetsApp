@@ -1,6 +1,8 @@
+import "../sass/style.scss";
+
 import $ from "jquery";
-import * as signup from "./signup"
-import * as login from "./login"
+import * as signup from "./signup";
+import * as login from "./login";
 
 if ($(".js_email_send").length !== 0) {
     $(".js_email_send").on("click", function () {

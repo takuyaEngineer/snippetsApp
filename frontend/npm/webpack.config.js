@@ -5,16 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
-
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
-
 
 
 const config = {
     entry: '../js/index.js',
     mode: 'production',
     output: {
-        path: path.resolve(__dirname, '../../static'),
+        path: path.resolve(__dirname, '../../static/webpack'),
         filename: "bundle.js"
     },
     resolve: {
@@ -51,6 +49,11 @@ const config = {
             // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "style.css"
+        })
+    ]
 };
 
 // module.exports = () => {
