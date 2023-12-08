@@ -3,14 +3,22 @@
 {% block title %}snippet list{% endblock title %}
 
 {% block body %}
-<h1>スニペット一覧</h1>
-{% for snippet in snippet_list %}
-<a href={% url "snippet/detail" snippet.id %}>
-    <li>{{snippet.id}}</li>
-    <li>{{snippet.title}}</li>
-</a>
-<hr>
-{% endfor %}
-<a href={% url "snippet/new" %}>スニペット作成</a>
+<main class="l_layout_snippet snippet_list_page">
+    <div class="title_area">
+        <h1 class="title_22 fw_500">スニペット一覧</h1>
+        {% with url="snippet/new" text="スニペット作成" class="snippet_create_button" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+    </div>
+    <div class="snippet_list">
+        {% for snippet in snippet_list %}
+        <a class="snippet_item" href={% url "snippet/detail" snippet.id %}>
+            <li>{{snippet.id}}</li>
+            <li>{{snippet.title}}</li>
+        </a>
+        <hr>
+        {% endfor %}
+    </div>
+</main>
 {% endblock body %}
 

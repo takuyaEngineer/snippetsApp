@@ -1,0 +1,21 @@
+@charset 'utf-8';
+
+.snippet_list_page {
+    .title_area {
+        display: flex;
+    }
+
+    .snippet_create_button {
+        margin-left: auto;
+    }
+
+    .snippet_list {
+        display: flex;
+        margin-top: 2.4rem;
+    }
+
+    .snippet_item {
+        width: 26rem;
+        background-color: colors(accent);
+    }
+}

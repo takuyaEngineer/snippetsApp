@@ -3,7 +3,7 @@
 {% block title %}login{% endblock title %}
 
 {% block body %}
-<div class="l_layout_center login_page">
+<main class="l_layout_center login_page">
     <h1 class="title_22">ログイン</h1>
     <form class="form" action="{% url "login/check" %}" method="POST">
         {% csrf_token %}
@@ -20,5 +20,5 @@
             {% include "components/button/index.html" %}
         {% endwith %}
     </form>
-</div>
+</main>
 {% endblock body %}
