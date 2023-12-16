@@ -10,15 +10,18 @@
             {% include "components/link/button_link.html" %}
         {% endwith %}
     </div>
+    {% if snippet_list %}
     <div class="snippet_list">
         {% for snippet in snippet_list %}
         <a class="snippet_item" href={% url "snippet/detail" snippet.id %}>
-            <li>{{snippet.id}}</li>
-            <li>{{snippet.title}}</li>
+            <p class="snippet_item_title">{{snippet.title}}</p>
+            <p class="snippet_item_text">{{snippet.description}}</p>
         </a>
-        <hr>
         {% endfor %}
     </div>
+    {% else %}
+    <p class="no_snippet_list">スニペットがありません</p>
+    {% endif %}
 </main>
 {% endblock body %}
 
