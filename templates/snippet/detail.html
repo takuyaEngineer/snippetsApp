@@ -3,18 +3,32 @@
 {% block title %}snippet detail{% endblock title %}
 
 {% block body %}
-<ul>
-    <li>{{snippet.id}}</li>
-    <li>{{snippet.title}}</li>
-    <li>{{snippet.description}}</li>
-    <li>{{snippet.code}}</li>
-    <li>{{snippet.created_at}}</li>
-    <li>{{snippet.updated_at}}</li>
-</ul>
-<a href={% url "snippet/edit" snippet.id %}>編集</a>
-<form action="{% url "snippet/delete" snippet.id %}">
-    <button type="submit">削除</button>
-</form>
-<a href={% url "snippet/index" %}>トップへ</a>
+<main class="l_layout_snippet snippet_detail_page">
+    <div class="title_area">
+        <h1 class="title_22 fw_500">スニペット詳細</h1>
+        {% with url="snippet/edit" args=snippet.id text="スニペット編集" class="snippet_edit_button" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+        {% with url="snippet/delete" args=snippet.id text="スニペット削除" class="snippet_delete_button" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+    </div>
+    <div class="snippet_items">
+        <p class="snippet_title">タイトル：{{snippet.title}}</p>
+        <p class="snippet_text">説明：{{snippet.description}}</p>
+        <p class="snippet_sub_text">
+            <span class="snippet_text">ID：{{snippet.id}}</span>
+            <span class="snippet_date">作成日：{{snippet.created_at}}</span>
+            <span class="snippet_date">更新日：{{snippet.updated_at}}</span>
+        </p>
+        <p class="snippet_text">スニペット：</p>
+        <pre class="snippet_code">{{snippet.code}}</pre>
+    </div>
+    <div class="to_list_button_wrapper">
+        {% with url="snippet/index" text="一覧に戻る" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+    </div>
+</main>
 {% endblock body %}
 

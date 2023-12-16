@@ -34,8 +34,10 @@ body {
     color: colors(black_87);
 }
 
-p {
+p,
+pre {
     margin: 0;
+    font-family: "Noto Sans JP";
 }
 
 a {

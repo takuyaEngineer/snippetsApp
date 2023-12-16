@@ -1,1 +1,10 @@
-<a class="button_link {{class}}" href="{% url url %}">{{text}}</a>
+<a 
+    class="button_link {{class}}"
+    {% if args %}
+    href="{% url url args %}"
+    {% else %}
+    href="{% url url %}"
+    {% endif %}
+>
+    {{text}}
+</a>
