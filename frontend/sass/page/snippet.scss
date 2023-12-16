@@ -11,6 +11,7 @@
 
     .snippet_list {
         display: flex;
+        flex-wrap: wrap;
         gap: 2.6rem;
         margin-top: 2.4rem;
     }
@@ -22,8 +23,8 @@
     }
 
     .snippet_item {
-        width: 100%;
-        max-width: 26rem;
+        width: 26rem;
+        // max-width: 26rem;
         padding: 1.6rem;
         border-radius: .8rem;
         background-color: colors(main);
@@ -33,6 +34,7 @@
         font-size: 1.6rem;
         font-weight: 500;
         color: colors(white_87);
+        word-break: break-all;
     }
 
     .snippet_item_text {
@@ -40,6 +42,7 @@
         font-weight: 400;
         margin-top: .8rem;
         color: colors(white_87);
+        word-break: break-all;
     }
 }
 
@@ -128,6 +131,38 @@
     }
 
     .snippet_edit_button {
+        width: 100%;
+        background-color: colors(main_4);
+    }
+
+    .to_list_button_wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 2.4rem;
+        margin-left: auto;
+    }
+}
+
+.snippet_create_page {
+    .snippet_items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+        width: 100%;
+        padding: 1.6rem;
+        margin-top: 2.4rem;
+        border-radius: .8rem;
+        color: colors(white_87);
+        background-color: colors(main);
+    }
+
+    .snippet_code {
+        max-width: 100%;
+        width: 100%;
+        min-height: 40rem;
+    }
+
+    .snippet_create_button {
         width: 100%;
         background-color: colors(main_4);
     }
