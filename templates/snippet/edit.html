@@ -3,23 +3,32 @@
 {% block title %}snippet edit{% endblock title %}
 
 {% block body %}
-<h1>スニペットの編集</h1>
-<form action="{% url 'snippet/update' snippet.id %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+<main class="l_layout_snippet snippet_edit_page">
+    <div class="title_area">
+        <h1 class="title_22 fw_500">スニペット編集</h1>
+    </div>
+    <form class="snippet_items" action="{% url 'snippet/update' snippet.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% with class="snippet_edit_input" text="タイトル" type="text" name="title" value=snippet.title %}
+            {% include "components/input/index.html" %}
+        {% endwith %}
 
-    {% with text="タイトル" type="text" name="title" value=snippet.title %}
-        {% include "components/input/index.html" %}
-    {% endwith %}
+        {% with class="snippet_edit_input" text="説明" type="text" name="description" value=snippet.description %}
+            {% include "components/input/index.html" %}
+        {% endwith %}
 
-    {% with text="説明" type="text" name="description" value=snippet.description %}
-        {% include "components/input/index.html" %}
-    {% endwith %}
+        {% with class="snippet_edit_input snippet_code" text="コード" name="code" value=snippet.code %}
+            {% include "components/textarea/index.html" %}
+        {% endwith %}
 
-    {% with text="コード" name="code" value=snippet.code %}
-        {% include "components/textarea/index.html" %}
-    {% endwith %}
-
-    <button type="submit">更新</button>
-</form>
-<a href={% url "snippet/index" %}>トップへ</a>
+        {% with class="snippet_edit_button" type="submit" text="スニペット更新" %}
+            {% include "components/button/index.html" %}
+        {% endwith %}
+    </form>
+    <div class="to_list_button_wrapper">
+        {% with url="snippet/index" text="一覧に戻る" %}
+            {% include "components/link/button_link.html" %}
+        {% endwith %}
+    </div>
+</main>
 {% endblock body %}

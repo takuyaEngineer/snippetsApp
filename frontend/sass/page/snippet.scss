@@ -104,6 +104,38 @@
         padding: 1.6rem;
         border-radius: .4rem;
         color: colors(black_87);
-        background-color: colors(gray);
+        background-color: colors(white_60);
+    }
+}
+
+.snippet_edit_page {
+    .snippet_items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.6rem;
+        width: 100%;
+        padding: 1.6rem;
+        margin-top: 2.4rem;
+        border-radius: .8rem;
+        color: colors(white_87);
+        background-color: colors(main);
+    }
+
+    .snippet_code {
+        max-width: 100%;
+        width: 100%;
+        min-height: 40rem;
+    }
+
+    .snippet_edit_button {
+        width: 100%;
+        background-color: colors(main_4);
+    }
+
+    .to_list_button_wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 2.4rem;
+        margin-left: auto;
     }
 }
